@@ -1,0 +1,58 @@
+* {
+  background-color: #282828;
+  color: #7733FF;
+  font-family:'Lucida Sans', sans-serif;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content:center;
+  margin-top:100px;
+}
+
+/* Style for Pomodoro */
+.pomodoro {
+  max-width: 600px;
+  max-height: 600px;
+  padding:30px;
+  border: 2px solid #7733FF;;
+  border-radius: 30px;
+}
+
+.pomodoro > button {
+  font-size: 30px;
+  width:200px;
+  height:60px;
+  margin: 10px;
+  border-radius:10px;
+  border: thin solid #FFAA00;;
+  -webkit-box-shadow: 8px 5px 15px 1px rgba(119,51,255,0.5); 
+  box-shadow: 8px 5px 15px 1px rgba(119,51,255,0.5);
+}
+
+.pomodoro > button:hover {
+  border: 5px solid #FFAA00;;
+  -webkit-box-shadow: 8px 5px 15px 1px #FFAA00; 
+  box-shadow: 8px 5px 15px 1px #FFAA00;
+}
+
+/* Style for Clock */
+#clock > input {
+  color:white;
+  font-size: 30px;
+
+  width:60px;
+  height:60px;
+  margin:10px;
+  border-radius:10px;
+}
+
+/* Style for Todolist */
+.box {
+  padding:20px;
+}
+.box > button {
+  font-size: 20px;
+}

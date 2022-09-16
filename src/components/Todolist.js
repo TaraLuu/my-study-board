@@ -1,43 +1,53 @@
-import React, {useState, useRef} from 'react'
-import uuidv4 from 'uuid/v4'
+import React, {useState, useRef, useEffect} from 'react'
+import List from './List.js'
+import {v4 as uuidv4} from 'uuid'
 
-import React from 'react'
 
-const LOCAL_STORAGE_KEY = 'Todo.list'
+const LOCAL_STORAGE_KEY = 'Todolist.tasks'
 
 const Todolist = () => {
-  const [todo, setTodo] = useState([])
+  const [tasks, setTask] = useState([])
   const descriptionRef = useRef()
-  const completeRef = useRef()
+  const levelRef = useRef()
   const targetRef = useRef()
 
   useEffect(() => {
-    const storedTodos = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY))
-    if (storedTodos) setTimer(storedTodos)
+    const storedTasks = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY))
+    if (storedTasks) setTask(storedTasks)
   },[])
 
   useEffect(() => {
-    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(todo))
-  },[todo])
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(tasks))
+  },[tasks])
 
   function handleAdd(e) {
     const description = descriptionRef.current.value
-    const complete = completeRef.current.value
+    const level = levelRef.current.value
     const target = targetRef.current.value
-    description.current.value = null
-
-    setTimer(previousState => {
-      return [...previousState,{id:uuidv4(), description:description, complete:complete, target:target}]
+    if (description === '') return
+    setTask(previousState => {
+      return [...previousState,{id:uuidv4(), description:description, level:level, target:target}]
     })
+
+    descriptionRef.current.value = null
+    levelRef.current.value = null
+    targetRef.current.value = null
+  }
+
+  function handleDelete(id) {
+    const newTasks = [...tasks]
+    const updateTasks = newTasks.filter(task => task.id === id)
+    setTask(updateTasks)
+    console.log(id)
   }
 
   return (
-    <div>
-      <input ref={descriptionRef}></input>
-      <input ref={completeRef}></input>
+    <div className="Task">
+      <input ref={descriptionRef} type="text"></input>
+      <input ref={levelRef}></input>
       <input ref={targetRef}></input>
-      <button onClick={handleAdd}></button>
-      <button onClick={handleClear}></button>
+      <button onClick={handleAdd}>Add Task</button>
+      <List tasks={tasks} handleDelete={handleDelete} />
       
     </div>
   )
