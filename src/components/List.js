@@ -1,16 +1,13 @@
 import React from 'react'
+import Task from './Task.js'
+
 
 const List = ({tasks, handleDelete}) => {
+
   return (
     tasks.map(task => {
         return (
-            <div key={task.id}>
-                <p>{task.description}</p>
-                <p>{task.level}</p>
-                <p>{task.target}</p>
-                <p>{task.id}</p>
-                <button onClick={handleDelete}>Delete</button>
-            </div>
+            <Task key={task.id} handleDelete={handleDelete} task={task}/>
         )
     })
   )

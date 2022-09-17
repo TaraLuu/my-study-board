@@ -35,17 +35,23 @@ const Todolist = () => {
   }
 
   function handleDelete(id) {
-    const newTasks = [...tasks]
-    const updateTasks = newTasks.filter(task => task.id === id)
-    setTask(updateTasks)
     console.log(id)
+    const newTasks = [...tasks]
+    const updateTasks = newTasks.filter(task => task.id !== id)
+    setTask(updateTasks)
   }
 
   return (
     <div className="Task">
-      <input ref={descriptionRef} type="text"></input>
-      <input ref={levelRef}></input>
-      <input ref={targetRef}></input>
+      <label>To-Do List</label>
+      Description: <input ref={descriptionRef} type="text"></input>
+      Importance: <input ref={levelRef} list="levels" value="Normal"></input>
+      <datalist id="levels">
+        <option value="Normal">Normal</option>
+        <option value="Medium">Medium</option>
+        <option value="High">High</option>
+      </datalist>
+      Date: <input ref={targetRef} type="date"></input>
       <button onClick={handleAdd}>Add Task</button>
       <List tasks={tasks} handleDelete={handleDelete} />
       
